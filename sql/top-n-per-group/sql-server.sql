@@ -1,2 +1,2 @@
--- SQL Server version
+-- SQL script for sql-server
 SELECT * FROM sales;

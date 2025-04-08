@@ -1,2 +1,2 @@
--- MySQL 5.7 workaround version
+-- SQL script for mysql-5.7
 SELECT * FROM sales;

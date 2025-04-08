@@ -1,2 +1,2 @@
--- MySQL 8+ version
+-- SQL script for mysql-8plus
 SELECT * FROM sales;
