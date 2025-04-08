@@ -1,1 +1,2 @@
--- mysql-5.7.sql content
+-- MySQL 5.7 workaround version
+SELECT * FROM sales;

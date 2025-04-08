@@ -1,1 +1,2 @@
--- oracle.sql content
+-- Oracle version
+SELECT * FROM sales;

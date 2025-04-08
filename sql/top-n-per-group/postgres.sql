@@ -1,1 +1,2 @@
--- postgres.sql content
+-- PostgreSQL version
+SELECT * FROM sales;

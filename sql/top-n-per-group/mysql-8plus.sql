@@ -1,1 +1,2 @@
--- mysql-8plus.sql content
+-- MySQL 8+ version
+SELECT * FROM sales;
