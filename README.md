@@ -1,8 +1,10 @@
 # Thinking in SQL
 
-**By Kazi Mohammad Ali Nur (Romel)**  
-Senior SQL Architect · 20+ Years of Experience · 2.6M+ Stack Overflow Reach
+Cross-database SQL tutorials by **Kazi Mohammad Ali Nur (Romel)** — real-world patterns from Stack Overflow and enterprise experience.
 
+
+📘 [View my Stack Overflow profile](https://stackoverflow.com/users/8651601/kazi-mohammad-ali-nur-romel)  
+🌐 [thinkinginsql.github.io](https://kmnur.github.io/thinking-in-sql)
 ---
 
 **Thinking in SQL** is a growing collection of real-world, cross-platform SQL tutorials inspired by practical problems and professional patterns — not textbook theory.
