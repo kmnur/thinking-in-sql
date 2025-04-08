@@ -1,6 +1,9 @@
 # Top N Records Per Group in SQL
 **By Kazi Mohammad Ali Nur (Romel)**
 
+> 🧠 **Inspired by my this answer on Stack Overflow:**  
+> [Top N Records Per Group using SQL `ROW_NUMBER()`](https://stackoverflow.com/a/66919911/8651601)  
+> 
 > In the proposed solution, I’ve used `ROW_NUMBER()` in combination with a **Common Table Expression (CTE)** to extract the top N records per group.
 >
 > This approach is clean, modular, and supported across most modern SQL engines. The `ROW_NUMBER()` function allows us to rank each row within a partition (like rows per city), and the CTE helps us separate the ranking logic from the filtering logic.
