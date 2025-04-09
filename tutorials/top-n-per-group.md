@@ -1,14 +1,78 @@
 # Top N Records Per Group in SQL
 **By Kazi Mohammad Ali Nur (Romel)**
 
-> 🧠 **Inspired by my this answer on Stack Overflow:**  
-> [Top N Records Per Group using SQL `ROW_NUMBER()`](https://stackoverflow.com/a/66919911/8651601)  
-> 
-> In the proposed solution, I’ve used `ROW_NUMBER()` in combination with a **Common Table Expression (CTE)** to extract the top N records per group.
+> 🧠 **Inspired by my answer to this Stack Overflow question:**  
+> [Select 2 products per city with most counts in PostgreSQL](https://stackoverflow.com/questions/67475198/select-2-products-per-city-with-most-counts-in-postgresql/67475289#67475289)  
+>
+> In the original question, the user asked how to retrieve **two products per city** with the highest total count using PostgreSQL.
+>
+> In my answer, I’ve used `ROW_NUMBER()` in combination with a **Common Table Expression (CTE)** to extract the top N records per group.
 >
 > This approach is clean, modular, and supported across most modern SQL engines. The `ROW_NUMBER()` function allows us to rank each row within a partition (like rows per city), and the CTE helps us separate the ranking logic from the filtering logic.
 >
-> If you're new to either concept, don't worry — we’ll break down both below.
+> If you're new to either concept, don't worry — we’ll break down both at the bottom of this tutorial.
+
+---
+
+> In this tutorial, we’ll use a CTE to isolate the ranked rows before filtering out the top N per group.
+
+---
+
+## ✅ Solutions by Database
+
+### 🐘 PostgreSQL
+
+In this solution, I’ve used `ROW_NUMBER()` to rank products within each city based on their count — from highest to lowest. The `PARTITION BY the_city` clause ensures that the ranking restarts for every city, while `ORDER BY count(*) DESC` gives us the most frequent products first.
+
+The ranking logic is wrapped inside a Common Table Expression (CTE) named `city_products`, which simplifies the final selection: we just filter where `rn <= 2` to get the top 2 products per city.
+
+This approach is elegant, readable, and performs well in most SQL engines that support window functions.
+
+```sql
+WITH city_products AS (
+  SELECT
+    the_city,
+    the_product,
+    COUNT(*) AS product_count,
+    ROW_NUMBER() OVER (PARTITION BY the_city ORDER BY COUNT(*) DESC) AS rn
+  FROM my_table
+  GROUP BY the_city, the_product
+)
+SELECT the_city, the_product, product_count
+FROM city_products
+WHERE rn <= 2;
+```
+
+**Sample Output:**
+
+| the_city | the_product | product_count |
+|----------|-------------|----------------|
+| EVORA    | D           | 4              |
+| EVORA    | B           | 2              |
+| LISBO    | A           | 5              |
+| LISBO    | B           | 2              |
+| PORTO    | C           | 3              |
+| PORTO    | B           | 2              |
+
+👉 [Try it live on DB Fiddle](https://dbfiddle.uk/ZlUjxoMm)
+
+---
+
+### 🪟 SQL Server
+
+👉 [Try it live on DB Fiddle](https://dbfiddle.uk/rsq8MqN8)
+
+---
+
+### 🟠 Oracle (12c+)
+
+👉 [Try it live on DB Fiddle](https://dbfiddle.uk/Q-1c5-R-)
+
+---
+
+### 🟡 MySQL 8+
+
+👉 [Try it live on DB Fiddle](https://dbfiddle.uk/MmB_1WEk)
 
 ---
 
@@ -54,108 +118,6 @@ WITH ranked_sales AS (
 SELECT ...
 FROM ranked_sales
 WHERE ...
-```
-
-> In this tutorial, we’ll use a CTE to isolate the ranked rows before filtering out the top N per group.
-
----
-
-## ✅ Solutions by Database
-
-### 🐘 PostgreSQL
-
-```sql
-WITH ranked_sales AS (
-  SELECT
-    city,
-    product,
-    SUM(quantity) AS total_quantity,
-    ROW_NUMBER() OVER (PARTITION BY city ORDER BY SUM(quantity) DESC) AS rn
-  FROM sales
-  GROUP BY city, product
-)
-SELECT city, product, total_quantity
-FROM ranked_sales
-WHERE rn <= 2;
-```
-
----
-
-### 🪟 SQL Server
-
-```sql
-WITH ranked_sales AS (
-  SELECT
-    city,
-    product,
-    SUM(quantity) AS total_quantity,
-    ROW_NUMBER() OVER (PARTITION BY city ORDER BY SUM(quantity) DESC) AS rn
-  FROM sales
-  GROUP BY city, product
-)
-SELECT city, product, total_quantity
-FROM ranked_sales
-WHERE rn <= 2;
-```
-
----
-
-### 🟠 Oracle (12c+)
-
-```sql
-SELECT city, product, total_quantity
-FROM (
-  SELECT
-    city,
-    product,
-    SUM(quantity) AS total_quantity,
-    ROW_NUMBER() OVER (PARTITION BY city ORDER BY SUM(quantity) DESC) AS rn
-  FROM sales
-  GROUP BY city, product
-)
-WHERE rn <= 2;
-```
-
----
-
-### 🟡 MySQL 8+
-
-```sql
-WITH ranked_sales AS (
-  SELECT
-    city,
-    product,
-    SUM(quantity) AS total_quantity,
-    ROW_NUMBER() OVER (PARTITION BY city ORDER BY SUM(quantity) DESC) AS rn
-  FROM sales
-  GROUP BY city, product
-)
-SELECT city, product, total_quantity
-FROM ranked_sales
-WHERE rn <= 2;
-```
-
----
-
-### ⚠️ MySQL 5.7 and Below
-
-```sql
-SELECT s1.city, s1.product, s1.total_quantity
-FROM (
-  SELECT city, product, SUM(quantity) AS total_quantity
-  FROM sales
-  GROUP BY city, product
-) s1
-WHERE (
-  SELECT COUNT(*)
-  FROM (
-    SELECT city, product, SUM(quantity) AS total_quantity
-    FROM sales
-    GROUP BY city, product
-  ) s2
-  WHERE s2.city = s1.city
-    AND s2.total_quantity > s1.total_quantity
-) < 2;
 ```
 
 ---
