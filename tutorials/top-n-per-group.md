@@ -26,7 +26,7 @@ In this solution, I’ve used `ROW_NUMBER()` to rank products within each city b
 
 The ranking logic is wrapped inside a Common Table Expression (CTE) named `city_products`, which simplifies the final selection: we just filter where `rn <= 2` to get the top 2 products per city.
 
-This approach is elegant, readable, and performs well in most SQL engines that support window functions.
+This approach is elegant, readable, and performs well in most SQL engines that support window functions (SQL Server, Oracle, MySQL 8+).
 
 ```sql
 WITH city_products AS (
