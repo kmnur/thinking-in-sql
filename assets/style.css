@@ -5,8 +5,23 @@ body {
   padding: 1rem;
   line-height: 1.7;
 }
+header h1 {
+  margin: 0;
+}
+header p.subtitle {
+  color: #666;
+  font-size: 0.95em;
+}
+nav a {
+  color: #007acc;
+  text-decoration: none;
+  margin-right: 0.75rem;
+}
+nav a:hover {
+  text-decoration: underline;
+}
 pre {
-  background: #f4f4f4;
+  background: #f8f8f8;
   padding: 1em;
   overflow-x: auto;
 }
@@ -24,7 +39,7 @@ th, td {
   text-align: left;
 }
 a {
-  color: #007acc;
+  color: #0366d6;
   text-decoration: none;
 }
 a:hover {
