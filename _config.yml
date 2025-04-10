@@ -1,0 +1,6 @@
+title: Thinking in SQL
+description: Cross-database SQL tutorials by Kazi Mohammad Ali Nur (Romel)
+baseurl: ""
+url: "https://kmnur.github.io/thinking-in-sql"
+markdown: kramdown
+theme: minima
