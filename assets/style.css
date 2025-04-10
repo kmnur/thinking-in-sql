@@ -4,29 +4,28 @@ body {
   margin: 2rem auto;
   padding: 1rem;
   line-height: 1.7;
+  color: #222;
+  background-color: #fff;
 }
-header h1 {
-  margin: 0;
+h1, h2, h3 {
+  color: #111;
 }
-header p.subtitle {
-  color: #666;
-  font-size: 0.95em;
-}
-nav a {
-  color: #007acc;
+a {
+  color: #0366d6;
   text-decoration: none;
-  margin-right: 0.75rem;
 }
-nav a:hover {
+a:hover {
   text-decoration: underline;
 }
 pre {
-  background: #f8f8f8;
+  background: #f4f4f4;
   padding: 1em;
   overflow-x: auto;
 }
 code {
   font-family: monospace;
+  background: #f0f0f0;
+  padding: 0.2em 0.4em;
 }
 table {
   border-collapse: collapse;
@@ -36,12 +35,16 @@ table {
 th, td {
   border: 1px solid #ccc;
   padding: 0.5rem;
-  text-align: left;
 }
-a {
-  color: #0366d6;
-  text-decoration: none;
+.subtitle {
+  font-size: 0.9rem;
+  color: #666;
 }
-a:hover {
-  text-decoration: underline;
+nav a {
+  margin-right: 1rem;
+}
+footer {
+  font-size: 0.85rem;
+  color: #666;
+  text-align: center;
 }
